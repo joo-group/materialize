@@ -6,34 +6,26 @@ meta(name='msapplication-tap-highlight', content='no')
 if meta_descript
   meta(name='description', content='#{meta_descript}')
 else
-  meta(name='description', content='Materialize is a modern responsive CSS framework based on Material Design by Google. ')
+  meta(name='description', content='CssToolkits is a modern responsive CSS framework based on Material Design by Google. ')
 
 if page
-  title #{page} - Materialize
+  title #{page} - CssToolkits
 else
-  title Documentation - Materialize
+  title Documentation - CssToolkits
 
 
 // Favicons
 link(rel='apple-touch-icon-precomposed', href='images/favicon/apple-touch-icon-152x152.png')
+// Windows 8 磁贴颜色
 meta(name='msapplication-TileColor', content='#FFFFFF')
+// Windows 8 磁贴图标
 meta(name='msapplication-TileImage', content='images/favicon/mstile-144x144.png')
 link(rel='icon', href='images/favicon/favicon-32x32.png', sizes='32x32')
 
 //  Android 5 Chrome Color
 meta(name='theme-color', content='#EE6E73')
 // CSS
-link(href='css/prism.css', rel='stylesheet')
-link(href='css/ghpages-materialize.css', type='text/css', rel='stylesheet', media='screen,projection')
-link(href='http://fonts.googleapis.com/css?family=Inconsolata', rel='stylesheet', type='text/css')
-link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-
-script.
-  window.liveSettings = {
-    api_key: "a0b49b34b93844c38eaee15690d86413",
-    picker: "bottom-right",
-    detectlang: true,
-    dynamic: true,
-    autocollect: true
-  };
-script(src='//cdn.transifex.com/live.js')
+link(href='css/code.css', rel='stylesheet')
+link(href='dist/css/ct.min.css', rel='stylesheet')
+link(href='css/docs.css', rel='stylesheet')
+link(href='css/ghpages-csstoolkits.min.css', type='text/css', rel='stylesheet', media='screen,projection')

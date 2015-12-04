@@ -1,3 +1,42 @@
+Materialize = {};
+
+// Unique ID
+Materialize.guid = (function() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return function() {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+           s4() + '-' + s4() + s4() + s4();
+  };
+})();
+
+Materialize.elementOrParentIsFixed = function(element) {
+    var $element = $(element);
+    var $checkElements = $element.add($element.parents());
+    var isFixed = false;
+    $checkElements.each(function(){
+        if ($(this).css("position") === "fixed") {
+            isFixed = true;
+            return false;
+        }
+    });
+    return isFixed;
+};
+
+// Velocity has conflicts when loaded with jQuery, this will check for it
+var Vel;
+if ($) {
+  Vel = $.Velocity;
+}
+else {
+  Vel = Velocity;
+}
+
+
+//end
 (function($){
   $(function(){
 
@@ -18,16 +57,16 @@
       return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
     }
 
-    $('.dynamic-color .col').each(function () {
-      $(this).children().each(function () {
-        var color = $(this).css('background-color'),
-            classes = $(this).attr('class');
-        $(this).html(rgb2hex(color) + " " + classes);
-        if (classes.indexOf("darken") >= 0 || $(this).hasClass('black')) {
-          $(this).css('color', 'rgba(255,255,255,.9');
-        }
-      });
-    });
+    // $('.dynamic-color .col').each(function () {
+    //   $(this).children().each(function () {
+    //     var color = $(this).css('background-color'),
+    //         classes = $(this).attr('class');
+    //     $(this).html(rgb2hex(color) + " " + classes);
+    //     if (classes.indexOf("darken") >= 0 || $(this).hasClass('black')) {
+    //       $(this).css('color', 'rgba(255,255,255,.9');
+    //     }
+    //   });
+    // });
 
 
     // Floating-Fixed table of contents
@@ -42,31 +81,10 @@
     }
 
 
-
-    // BuySellAds Detection
-    var $bsa = $(".buysellads"),
-        $timesToCheck = 3;
-    function checkForChanges() {
-        if (!$bsa.find('#carbonads').length) {
-          $timesToCheck -= 1;
-          if ($timesToCheck >= 0) {
-            setTimeout(checkForChanges, 500);
-          }
-          else {
-            var donateAd = $('<div id="carbonads"><span><a class="carbon-text" href="#!" onclick="document.getElementById(\'paypal-donate\').submit();"><img src="images/donate.png" /> Help support us by turning off adblock. If you still prefer to keep adblock on for this page but still want to support us, feel free to donate. Any little bit helps.</a></form></span></div>');
-
-            $bsa.append(donateAd);
-          }
-        }
-
-    }
-    checkForChanges();
-
-
     // Github Latest Commit
     if ($('.github-commit').length) { // Checks if widget div exists (Index only)
       $.ajax({
-        url: "https://api.github.com/repos/dogfalo/materialize/commits/master",
+        url: "https://api.github.com/repos/get3w/csstoolkits/commits/master",
         dataType: "json",
         success: function (data) {
           var sha = data.sha,
@@ -84,17 +102,17 @@
     var toggleFlowTextButton = $('#flow-toggle');
     toggleFlowTextButton.click( function(){
       $('#flow-text-demo').children('p').each(function(){
-          $(this).toggleClass('flow-text');
+          $(this).toggleClass('ct-text');
         });
     });
 
-//    Toggle Containers on page
+    // Toggle Containers on page
     var toggleContainersButton = $('#container-toggle-button');
     toggleContainersButton.click(function(){
-      $('body .browser-window .container, .had-container').each(function(){
-        $(this).toggleClass('had-container');
-        $(this).toggleClass('container');
-        if ($(this).hasClass('container')) {
+      $('body .browser-window .ct-container, .ct-container-fuild').each(function(){
+        $(this).toggleClass('ct-container-fuild');
+        $(this).toggleClass('ct-container');
+        if ($(this).hasClass('ct-container')) {
           toggleContainersButton.text("Turn off Containers");
         }
         else {
@@ -127,8 +145,7 @@
     $('.parallax').parallax();
     $('.modal-trigger').leanModal();
     $('.scrollspy').scrollSpy();
-    $('.button-collapse').sideNav({'edge': 'left'});
-    $('.datepicker').pickadate({selectYears: 20});
+    $('.ct-button-collapse').sideNav({'edge': 'left'});
     $('select').not('.disabled').material_select();
 
 
